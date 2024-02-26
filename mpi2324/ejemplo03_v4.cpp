@@ -30,8 +30,8 @@ int main(int argc, char **argv) {
         padding = real_size - MAX_ITEMS;
     }
 
-    std::vector<int> data;
-    std::vector<int> data_local;
+    std::vector<int> data(real_size,0);
+    std::vector<int> data_local(block_size,0);
     int suma_total = 0;
 
     if(rank==0)
@@ -45,9 +45,9 @@ int main(int argc, char **argv) {
         }
 
 
-        MPI_Scatter(data.data(),block_size,MPI_INT, //encio
-                    data_local.data(),block_size,MPI_INT,//que envia
-                    0,MPI_COMM_WORLD); //que rank
+        MPI_Scatter(data.data(), block_size, MPI_INT, //envio
+                    data_local.data(), block_size, MPI_INT,//a donde y que envia
+                    0, MPI_COMM_WORLD); //que rank
 
         suma_local = sumar(data_local.data(),block_size);
 

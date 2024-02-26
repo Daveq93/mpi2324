@@ -48,11 +48,11 @@ int main(int argc, char **argv) {
                  data_local.data(),block_size,MPI_INT,//que envia
                  0,MPI_COMM_WORLD); //que rank
 
-                 //calcular la suma parcial
+                
     if(rank==nprocs-1){
         block_size = block_size-padding;
     }
-
+ //calcular la suma parcial
     int suma_parcial = sumar(data_local.data(),block_size);
     std::printf("RANK_%d: suma parcial= %d\n",rank,suma_parcial);
 
